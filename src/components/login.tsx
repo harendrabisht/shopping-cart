@@ -1,5 +1,7 @@
 import React from "react";
 import { createData, setToken } from "../store/service";
+import { useAppDispatch } from "../store";
+import { updateUser } from "../store/user";
 
 // This code defines a React functional component named `Login` that renders a login form.
 // The form includes fields for email and password, along with a "Forgot password?" link.
@@ -11,6 +13,7 @@ const Login = () => {
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState("");
   const [loading, setLoading] = React.useState(false);
+  const dispatch = useAppDispatch();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,6 +25,7 @@ const Login = () => {
       console.log("Login successful", data);
       const token: string = data.accessToken;
       setToken(token);
+      dispatch(updateUser(data));
       // Handle successful login (e.g., redirect to dashboard)
     } else {
       setError("Invalid username or password");
