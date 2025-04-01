@@ -1,7 +1,7 @@
 import React from "react";
 import { createData, setToken } from "../store/service";
 import { useAppDispatch } from "../store";
-import { updateUser } from "../store/user";
+import { updateUser } from "../store/common-store";
 
 // This code defines a React functional component named `Login` that renders a login form.
 // The form includes fields for email and password, along with a "Forgot password?" link.

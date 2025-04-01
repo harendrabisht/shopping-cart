@@ -52,7 +52,7 @@ function App() {
   if (loading) {
     return <div>Loading...</div>;
   }
-  return <>{user.id ? <Dashboard /> : <Login />}</>;
+  return <>{user?.id ? <Dashboard /> : <Login />}</>;
 }
 
 export default App;
