@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { fetchData } from "../../store/service";
 import Product from "./product";
-import { updateProducts } from "../../store/common-store";
+import { updateProducts } from "../../store/products";
 import { useAppSelector, useAppDispatch } from "../../store";
 
 const ProductList = () => {

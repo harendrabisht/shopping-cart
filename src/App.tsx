@@ -1,8 +1,8 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import Login from "./components/login";
 import { fetchData, getToken } from "./store/service";
 import { RootState, useAppDispatch, useAppSelector } from "./store";
-import { updateUser, updateCart } from "./store/common-store";
+import { updateUser } from "./store/user";
 import Dashboard from "./components/dashboard";
 
 function App() {

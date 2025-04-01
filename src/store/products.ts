@@ -8,7 +8,7 @@ interface ProductsPayload {
 }
 
 export const updateProducts = createAction<ProductsPayload>(
-  "update/products-list"
+  "fetch/products/success"
 );
 
 interface ProductState {

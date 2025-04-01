@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../store";
-import { mergeCart, updateCart } from "../../store/common-store";
+import { mergeCart, updateCart } from "../../store/cart";
 import { createData } from "../../store/service";
 
 const Product = ({ product }: { product: any }) => {
@@ -27,7 +27,7 @@ const Product = ({ product }: { product: any }) => {
       <img
         alt={product.title}
         src={product.thumbnail}
-        className="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-60"
+        className="aspect-square w-full rounded-md bg-gray-200 object-cover group-hover:opacity-75 lg:aspect-auto lg:h-50"
       />
       <div className="mt-4 flex justify-between">
         <div>

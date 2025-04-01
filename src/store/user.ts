@@ -9,7 +9,7 @@ type User = {
   image: string | null;
 };
 
-export const updateUser = createAction<User>("get/user/success");
+export const updateUser = createAction<User>("fetch/user/success");
 
 const initialState: User = {
   id: null,

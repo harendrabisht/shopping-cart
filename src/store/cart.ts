@@ -7,8 +7,8 @@ type CartPayload = {
   id: number | null;
 };
 
-export const cartUpadate = createAction<CartPayload>("update/cart");
-export const mergeCart = createAction<CartPayload>("merge/cart");
+export const updateCart = createAction<CartPayload>("add/item/cart");
+export const mergeCart = createAction<CartPayload>("merge/item/cart");
 
 const initialState: CartPayload = {
   products: [],
@@ -23,7 +23,7 @@ const cartSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(cartUpadate, (state, action) => {
+      .addCase(updateCart, (state, action) => {
         const { products, id, total, totalQuantity } = action.payload;
         state.products = products;
         state.id = id;
@@ -49,5 +49,4 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart } = cartSlice.actions;
 export default cartSlice.reducer;
