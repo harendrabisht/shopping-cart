@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import Login from "./components/login";
-import { fetchData } from "./store/service";
+import { fetchData, getToken } from "./store/service";
 import { RootState, useAppDispatch, useAppSelector } from "./store";
 import { updateUser, updateCart } from "./store/common-store";
 import Dashboard from "./components/dashboard";
@@ -9,12 +9,16 @@ function App() {
   const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
   const user = useAppSelector((state: RootState) => state.user);
+  const token = getToken();
   useEffect(() => {
-    getUser();
+    if (token) {
+      getUser();
+    }
   }, []);
 
   const getUser = async () => {
     setLoading(true);
+
     try {
       const response = await fetchData("/user/me", {});
       const { data } = response;
@@ -32,7 +36,7 @@ function App() {
   };
   // Fetch the cart for the logged-in user
   const getCart = async () => {
-    if (user === null) return;
+    if (user.id === null) return;
     const response = await fetchData(`/carts/user/${user?.id}`, {});
     if (response.status === 200) {
       const { carts } = response.data;
@@ -48,7 +52,7 @@ function App() {
   if (loading) {
     return <div>Loading...</div>;
   }
-  return <>{user ? <Dashboard /> : <Login />}</>;
+  return <>{user.id ? <Dashboard /> : <Login />}</>;
 }
 
 export default App;
