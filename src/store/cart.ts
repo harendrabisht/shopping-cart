@@ -1,4 +1,5 @@
 import { createSlice, createAction } from "@reduxjs/toolkit";
+import { Product } from "./products";
 
 type CartPayload = {
   products: any[];
@@ -22,17 +23,11 @@ const cartSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder
-      .addCase(updateCart, (state, action) => {
-        const { products, id, total, totalQuantity } = action.payload;
-        state.products = products;
-        state.id = id;
-        state.total = total;
-        state.totalQuantity = totalQuantity;
-      })
-      .addCase(mergeCart, (state, action) => {
+    builder.addCase(updateCart, (state, action) => {
+      const { id } = state;
+      if (id) {
         const { products } = action.payload;
-        const updatedProducts: any = [...state.products, ...products];
+        const updatedProducts: Product[] = [...state.products, ...products];
         const totalQuantity: number = updatedProducts.reduce(
           (acc: number, product: any) => acc + product.quantity,
           0
@@ -45,7 +40,14 @@ const cartSlice = createSlice({
         state.products = updatedProducts;
         state.total = totalPrice;
         state.totalQuantity = totalQuantity;
-      });
+      } else {
+        const { products, id, total, totalQuantity } = action.payload;
+        state.products = products;
+        state.id = id;
+        state.total = total;
+        state.totalQuantity = totalQuantity;
+      }
+    });
   },
 });
 

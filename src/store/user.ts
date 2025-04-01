@@ -11,7 +11,7 @@ type User = {
 
 export const updateUser = createAction<User>("fetch/user/success");
 
-const initialState: User = {
+export const initialState: User = {
   id: null,
   email: "",
   firstName: "",

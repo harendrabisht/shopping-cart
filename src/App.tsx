@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Login from "./components/login";
 import { fetchData, getToken } from "./store/service";
 import { RootState, useAppDispatch, useAppSelector } from "./store";
-import { updateUser } from "./store/user";
+import { updateUser, initialState } from "./store/user";
 import Dashboard from "./components/dashboard";
 
 function App() {
@@ -26,11 +26,11 @@ function App() {
       if (response.status === 200) {
         dispatch(updateUser(data));
       } else {
-        dispatch(updateUser(null));
+        dispatch(updateUser(initialState));
       }
     } catch (error) {
       console.error("Login failed", error?.message);
-      dispatch(updateUser(null));
+      dispatch(updateUser(initialState));
       setLoading(false);
     }
   };

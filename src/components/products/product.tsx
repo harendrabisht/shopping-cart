@@ -1,27 +1,17 @@
-import { useAppDispatch, useAppSelector } from "../../store";
-import { mergeCart, updateCart } from "../../store/cart";
-import { createData } from "../../store/service";
+import { memo, useCallback } from "react";
 
-const Product = ({ product }: { product: any }) => {
-  const user = useAppSelector((state) => state.user);
-  const cart = useAppSelector((state) => state.cart);
-  const dispatch = useAppDispatch();
+import { Product as ProductType } from "../../store/products";
 
-  // handle add to cart
-  const handleAddToCart = async () => {
-    // Logic to add the product to the cart
-    const response = await createData("/carts/add", {
-      userId: user?.id,
-      products: [{ id: product.id, quantity: 1 }],
-    });
-    if (response.status === 201) {
-      if (cart?.id) {
-        dispatch(mergeCart(response.data));
-      } else {
-        dispatch(updateCart(response.data));
-      }
-    }
-  };
+type ProductProps = {
+  product: ProductType;
+  handleAddToCart: (product: ProductType) => void;
+};
+
+const Product = ({ product, handleAddToCart }: ProductProps) => {
+  const handleCartCallback = useCallback(
+    () => handleAddToCart(product),
+    [product]
+  );
   return (
     <div key={product.id} className="group">
       <img
@@ -42,12 +32,12 @@ const Product = ({ product }: { product: any }) => {
         <p className="text-sm font-medium text-gray-900">{product.price}</p>
       </div>
       <div className="w-full flex justify-between">
-        <button className="text-indigo-600" onClick={handleAddToCart}>
+        <button className="text-indigo-600" onClick={handleCartCallback}>
           View Item
         </button>
         <button
           className="flex justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          onClick={handleAddToCart}
+          onClick={handleCartCallback}
         >
           Add to Cart
         </button>
@@ -55,4 +45,4 @@ const Product = ({ product }: { product: any }) => {
     </div>
   );
 };
-export default Product;
+export default memo(Product);

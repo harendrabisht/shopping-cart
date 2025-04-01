@@ -1,7 +1,16 @@
 import { createSlice, createAction } from "@reduxjs/toolkit";
 
-interface ProductsPayload {
-  data: any[];
+export type Product = {
+  id: number;
+  title: string;
+  thumbnail: string;
+  images: string[];
+  price: number;
+  description: string;
+  brand: string;
+};
+export interface ProductsPayload {
+  data: Product[];
   total: number;
   limit: number;
   skip: number;
@@ -12,7 +21,7 @@ export const updateProducts = createAction<ProductsPayload>(
 );
 
 interface ProductState {
-  data: any[];
+  data: Product[];
   total: number;
   limit: number;
   skip: number;
